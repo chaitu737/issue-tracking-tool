@@ -1,0 +1,54 @@
+<h1>Issue Tracking Tool</h1>
+<div class="row show-hide-message">
+  <div [ngClass]="messageClass">
+    {{ message }}
+  </div>
+</div>
+<div class="container">
+<mat-card>
+<div class="example-container">
+
+  <mat-form-field>
+    <input matInput placeholder="Enter your email" [formControl]="email" required>
+   <mat-error *ngIf="email.hasError('email')">Please Enter a valid Email adderess</mat-error>
+   <mat-error *ngIf="email.hasError('required')">
+    Email is <strong>required</strong>
+  </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Enter your Username" [formControl]="username" required>
+   <mat-error *ngIf="username.hasError('required')">
+  Username is <strong>required</strong>
+  </mat-error>
+  </mat-form-field>
+
+
+<mat-form-field>
+    <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" [formControl]="password">
+    <mat-error *ngIf="password.hasError('required')">Password is required</mat-error>
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+         </button> 
+        </mat-form-field>
+
+<!-- <button mat-raised-button color="primary" style="display: block; margin-left:auto" (click)="submit()">Register</button> -->
+
+</div>
+
+<div class="footer">
+<button mat-raised-button color="ascent" style="display: block;margin-right:auto" (click)="register()">Register</button>
+<p>OR</p>
+<div class="col-md-12">
+<h2><p>Social Login</p></h2>
+<button class="btn btn-primary" (click)="socialSignIn('facebook')" style="background-color:#385998; border-color: #385998;"><i class="fa fa-facebook"></i>&nbsp;Facebook SignUp</button>
+<br>
+<br>
+<button class="btn btn-primary" (click)="socialSignIn('google')" style="background-color:#EA4335; border-color: #4285F4;"><i class="fa fa-google"></i>&nbsp;Google SignUp</button>
+<p>Already registered</p>
+<a href="/login">Login</a>
+</div>
+
+</div>
+</mat-card>
+</div>

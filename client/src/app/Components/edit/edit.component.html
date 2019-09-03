@@ -1,0 +1,124 @@
+
+<div class="container">
+  <div class="row">
+    <mat-card>
+    <h4 class="text-center"> Edit Issue </h4>
+    <br>
+    <br>
+ 
+    <div class="row show-hide-message">
+     <div [ngClass]="messageClass">
+        {{ message }}
+      
+     </div>
+   </div> 
+
+   <div class="row" *ngIf="userId==reporterId||assignees.includes(userId)">
+     <div class="col-md-6">
+        <mat-form-field>
+            <input matInput placeholder="Title"  name="title" [(ngModel)]="issue.title"required>
+               </mat-form-field>
+     </div>
+
+     <div class="col-md-6">
+        <mat-form-field>
+            <mat-select placeholder="Status" (selectionChange)="onChange($event.value)" [(ngModel)]="issue.status">
+                <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
+            </mat-select>
+            </mat-form-field> 
+     </div>
+
+     <div class="col-md-6">
+        <h3>Description</h3>
+           <app-ngx-editor placeholder="Issue Description" [config]="editorConfig" [spellcheck]="true" [(ngModel)]="issue.description"></app-ngx-editor>
+       </div>
+
+
+       <div class="col-md-6">
+          <h5>Image</h5>
+        <img src="http://localhost:3000/uploads/{{issue.image}}" width="50%">
+          <input style="display:none" type="file"  (change)=" onFileSelected($event)"  #fileInput>
+          <br>
+          <br>
+        <button mat-raised-button class="mat-elevation-z1" color='primary' (click)="fileInput.click()">Attach ScreenShot</button>
+</div>
+</div>
+
+
+   <div class="row" *ngIf="userId!==reporterId && !assignees.includes(userId)">
+     <div class="col-md-6">
+       <h4>{{issue?.title}}</h4>
+     </div>
+
+     <div class="col-md-6">
+       {{issue?.status}}
+     </div>
+
+     <div class="col-md-6">
+        <h5>Description</h5>
+         <p> {{issue?.description}}</p>
+         </div>
+
+
+         <div class="col-md-6">
+            <h5>Image</h5>
+            <img *ngIf="issue!=null" src="http://localhost:3000/uploads/{{issue.image}}" width="50%">
+              <br>
+  </div>
+</div>
+
+   <div class="row">
+     <div class="col-md-12">
+        <h5>Add Assignee</h5>
+        <mat-form-field class="example-full-width text-capitalize">
+            <mat-select placeholder="Assignee" [(ngModel)]="assignees" multiple>
+                <mat-option class="text-capitalize" *ngFor="let user of users" [value]="user">
+                    {{user.name}}
+                  </mat-option>
+</mat-select>
+</mat-form-field>
+     </div>
+     <div class="ml-auto d-block p-3">
+        <button mat-raised-button color="warn" *ngIf="assignees.includes(userId)|| userId==reporterId" (click)="onSave()">Submit Issue</button>
+        <button mat-raised-button color="warn" *ngIf="userId!==reporterId && !assignees.includes(userId)" (click)="addAssignee()">AddAssigne</button>
+
+       
+       </div>
+
+   </div>
+   
+   </mat-card>
+
+   <mat-card class="full-card1">
+  <div class="row">
+    <div class="col-md-12">
+      <h5>Comments</h5>
+      <br>
+      <div *ngFor="let commentArray of comments">{{commentArray.name}}
+          <p>{{commentArray.comments}}</p>
+            </div>
+            <mat-form-field class="example-full-width">
+                <textarea matInput placeholder="Comment"  name="comment" [(ngModel)]="comment">
+            </textarea>
+             </mat-form-field>
+             <button mat-flat-button color="primary" (click)="postComment()">Comment</button>
+             <button mat-raised-button color="accent" *ngIf="userId!==reporterId &&!watchers.includes(username)&& !assignees.includes(userId)" (click)="addWatcher()">Watch</button>
+
+
+    </div>
+    
+  </div>
+
+  <div class="col-md-12">
+    <h5>Watching</h5>
+    <div *ngFor="let watcher of watchers">
+        <p>{{watcher}}</p>
+        </div>
+  </div>
+   
+   </mat-card>
+  </div>
+</div>
+
+
+

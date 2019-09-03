@@ -1,0 +1,62 @@
+<mat-card>
+  <h4>Login to Issue tracking tool</h4>
+  <div class="row">
+    <div class="container">
+    <div class="col-md-6">
+      <div class="row show-hide-message">
+        <div [ngClass]="messageClass">
+          {{ message }}
+        </div>
+      </div>
+        <mat-form-field>
+            <input matInput placeholder="Enter your Username" [formControl]="username" required>
+           <mat-error *ngIf="username.hasError('required')">
+          Username is <strong>required</strong>
+          </mat-error>
+          </mat-form-field>
+        
+</div>
+
+    
+
+
+    <div class="col-md-6">
+
+  <mat-form-field>
+    <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" [formControl]="password">
+    <mat-error *ngIf="password.hasError('required')">Password is required</mat-error>
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+         </button> 
+        </mat-form-field>
+    </div>
+     <div>
+        <button mat-raised-button color="ascent" style="display: block;margin-right:auto" (click)="Login()">Login</button>
+
+      
+  
+  
+       
+<br>
+<a routerLink='/forget-password'>Forget Password</a>
+</div>
+<br>
+<strong>OR</strong>
+<p>Login with</p>
+<div>
+<button class="btn btn-primary" (click)="socialSignIn('facebook')" style="background-color:#385998; border-color: #385998;"><i class="fa fa-facebook"></i>&nbsp;Facebook Login</button>
+</div>
+<br>
+<div>
+    <button class="btn btn-primary" (click)="socialSignIn('google')" style="background-color:#EA4335; border-color: #4285F4;"><i class="fa fa-google"></i>&nbsp;Google Login</button>
+
+</div>
+
+<strong>Not Registered</strong>
+<br>
+
+<a href="" routerLink='/register'>Sign Up</a>
+</div>
+</div>
+
+</mat-card>

@@ -1,0 +1,40 @@
+<mat-card>
+<div class="col-md-12">
+    <h1>Create Issue</h1>
+</div>
+<div class="example-container">
+        <mat-form-field>
+          <input matInput placeholder="Title" [(ngModel)]="title" required>
+          <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+        </mat-form-field>
+        <mat-form-field>
+<mat-select placeholder="Status" (selectionChange)="onChange($event.value)">
+    <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
+</mat-select>
+</mat-form-field>
+
+<h3>Description</h3>
+          <app-ngx-editor placeholder="Issue Description" [config]="editorConfig" [spellcheck]="true" [(ngModel)]="description"></app-ngx-editor>
+ </div>
+      
+      <input style="display:none" type="file" (change)=" onFileSelected($event)" #fileInput>
+          <button mat-raised-button class="mat-elevation-z1" color='primary' (click)="fileInput.click()">Attach ScreenShot</button>
+          <!-- <mat-progress-spinner *ngIf="uploadStautus" class="example-margin" color="primary" mode="determinate"
+          diameter=40 [value]="progress">
+        </mat-progress-spinner> -->
+         <div class="example-container">
+          <mat-form-field class="example-full-width text-capitalize">
+                <mat-select placeholder="Assignee" [formControl]="assignee" multiple>
+                  <mat-option class="text-capitalize" *ngFor="let user of users" [value]="user.name">
+                    <!-- <mat-option class="text-capitalize" *ngFor="let user of users" [value]="user" [disabled]="anotherList.includes(user)"> -->
+                    {{user.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+             
+             </div>
+            <button mat-raised-button color="warn" (click)="onSubmit()">Submit Issue</button>
+
+            
+      </mat-card>
+      
